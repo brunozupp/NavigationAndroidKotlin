@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.novelitech.navigationandroidkotlin.core.navigation.AppScreens
 import com.novelitech.navigationandroidkotlin.screens.FirstScreen
 import com.novelitech.navigationandroidkotlin.screens.SecondScreen
 
@@ -14,9 +15,9 @@ fun MyApp() {
 
     NavHost(
         navController = navController,
-        startDestination = "first-screen"
+        startDestination = AppScreens.FIRST_SCREEN.route
     ) {
-        composable("first-screen") { FirstScreen(navController = navController) }
-        composable("second-screen") { SecondScreen(navController = navController) }
+        composable(AppScreens.FIRST_SCREEN.route) { FirstScreen(navController = navController) }
+        composable(AppScreens.SECOND_SCREEN.route) { SecondScreen(navController = navController) }
     }
 }

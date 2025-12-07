@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.novelitech.navigationandroidkotlin.core.navigation.AppScreens
 import com.novelitech.navigationandroidkotlin.ui.theme.NavigationAndroidKotlinTheme
 
 @Composable
@@ -65,7 +66,7 @@ fun FirstScreen(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = isButtonEnabled,
                 onClick = {
-                    navController.navigate("second-screen")
+                    navController.navigate(AppScreens.SECOND_SCREEN.route)
                 }
             ) {
                 Text(
