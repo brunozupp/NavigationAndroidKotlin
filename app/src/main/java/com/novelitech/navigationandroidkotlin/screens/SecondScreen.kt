@@ -22,7 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.novelitech.navigationandroidkotlin.ui.theme.NavigationAndroidKotlinTheme
 
 @Composable
-fun SecondScreen(navController: NavHostController) {
+fun SecondScreen(navController: NavHostController, name: String) {
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(
@@ -39,7 +39,7 @@ fun SecondScreen(navController: NavHostController) {
                 modifier = Modifier.height(16.dp)
             )
             Text(
-                text = "NAME",
+                text = name,
                 style = TextStyle(
                     fontSize = 36.sp,
                     fontWeight = FontWeight.Bold,
@@ -69,6 +69,6 @@ fun SecondScreenPreview() {
     val navController = rememberNavController()
 
     NavigationAndroidKotlinTheme {
-        SecondScreen(navController)
+        SecondScreen(navController, "Bruno")
     }
 }
