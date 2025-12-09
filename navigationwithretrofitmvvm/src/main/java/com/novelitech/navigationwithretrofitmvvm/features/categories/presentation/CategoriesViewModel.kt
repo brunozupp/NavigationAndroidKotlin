@@ -1,4 +1,7 @@
 package com.novelitech.navigationwithretrofitmvvm.features.categories.presentation
 
-class CategoriesViewModel {
+import androidx.lifecycle.ViewModel
+
+class CategoriesViewModel : ViewModel() {
+
 }
