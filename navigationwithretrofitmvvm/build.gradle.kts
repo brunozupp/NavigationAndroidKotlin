@@ -82,9 +82,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
     // Work with images
-    implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+    // Replace with the latest version from the Coil documentation
+    val coilVersion = "3.0.0-alpha06"
 
-    // By default, Coil doesn't support network calls to fetch the image. Need to import
-    // this dependency to allow it
-    implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
+    // Use the coil-compose artifact for Jetpack Compose projects
+    implementation("io.coil-kt.coil3:coil-compose:$coilVersion")
+
+    // Include the OkHttp networking artifact (available in Coil 3.x)
+    implementation("io.coil-kt.coil3:coil-network-okhttp:$coilVersion")
 }

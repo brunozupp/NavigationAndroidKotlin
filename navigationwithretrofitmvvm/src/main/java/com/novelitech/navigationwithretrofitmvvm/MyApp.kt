@@ -18,7 +18,7 @@ fun MyApp() {
         navController = navController,
         startDestination = AppRoutes.Categories
     ) {
-        composable<AppRoutes.Categories> { CategoriesPage() }
+        composable<AppRoutes.Categories> { CategoriesPage(navController = navController) }
         composable<AppRoutes.Meals> { MealsPage() }
         composable<AppRoutes.MealDetails> { MealDetailsPage() }
     }
