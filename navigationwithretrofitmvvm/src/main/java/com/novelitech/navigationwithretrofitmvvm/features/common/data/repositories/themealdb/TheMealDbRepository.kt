@@ -2,18 +2,19 @@ package com.novelitech.navigationwithretrofitmvvm.features.common.data.repositor
 
 import com.novelitech.navigationwithretrofitmvvm.features.categories.data.models.CategoryModel
 import com.novelitech.navigationwithretrofitmvvm.features.common.data.services.themealdb.TheMealDbRestClient
+import com.novelitech.navigationwithretrofitmvvm.features.common.data.services.themealdb.TheMealDbService
 import com.novelitech.navigationwithretrofitmvvm.features.mealDetails.data.models.MealDetailsModel
 import com.novelitech.navigationwithretrofitmvvm.features.meals.data.models.MealModel
 
 class TheMealDbRepository(
-    val client: TheMealDbRestClient
+    val service: TheMealDbService
 ) : ITheMealDbRepository {
 
     override suspend fun getCategories(): List<CategoryModel> {
 
         try {
 
-            val response = client.theMealDbRestClient.getCategories()
+            val response = service.getCategories()
 
             return response.categories
 
@@ -25,7 +26,7 @@ class TheMealDbRepository(
     override suspend fun getMeals(categoryName: String): List<MealModel> {
         try {
 
-            val response = client.theMealDbRestClient.getMeals(categoryName)
+            val response = service.getMeals(categoryName)
 
             return response.meals
 
@@ -37,7 +38,7 @@ class TheMealDbRepository(
     override suspend fun getMealDetails(mealId: String): MealDetailsModel {
         try {
 
-            val response = client.theMealDbRestClient.getMealDetails(mealId)
+            val response = service.getMealDetails(mealId)
 
             return response.meals.first()
 

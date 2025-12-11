@@ -8,6 +8,7 @@ import com.novelitech.navigationwithretrofitmvvm.core.navigation.AppRoutes
 import com.novelitech.navigationwithretrofitmvvm.features.categories.presentation.CategoriesPage
 import com.novelitech.navigationwithretrofitmvvm.features.mealDetails.presentation.MealDetailsPage
 import com.novelitech.navigationwithretrofitmvvm.features.meals.presentation.MealsPage
+import com.novelitech.navigationwithretrofitmvvm.features.providers.ProviderViewModel
 
 @Composable
 fun MyApp() {
@@ -18,7 +19,15 @@ fun MyApp() {
         navController = navController,
         startDestination = AppRoutes.Categories
     ) {
-        composable<AppRoutes.Categories> { CategoriesPage(navController = navController) }
+        composable<AppRoutes.Categories> {
+
+            val viewModel = ProviderViewModel.provideCategoriesViewModel()
+
+            CategoriesPage(
+                navController = navController,
+                viewModel = viewModel
+            )
+        }
         composable<AppRoutes.Meals> { MealsPage() }
         composable<AppRoutes.MealDetails> { MealDetailsPage() }
     }
