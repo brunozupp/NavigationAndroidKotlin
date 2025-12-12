@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.novelitech.navigationwithretrofitmvvm.ui.components.AppGridBasePage
 import androidx.compose.runtime.getValue
+import com.novelitech.navigationwithretrofitmvvm.core.navigation.AppRoutes
 import com.novelitech.navigationwithretrofitmvvm.features.providers.ProviderViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -20,10 +21,6 @@ fun CategoriesPage(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
-        viewModel.fetchCategories()
-    }
-
     AppGridBasePage(
         navController = navController,
         appBarTitle = "Categories",
@@ -32,18 +29,22 @@ fun CategoriesPage(
         items = uiState.categories,
         imageThumb = { it.image },
         imageDescription = { it.name },
-        onTapImage = { println("${it.name} - ${it.description}") }
+        onTapImage = {
+            navController.navigate(
+                AppRoutes.Meals(categoryName = it.name)
+            )
+        }
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun CategoriesPagePreview() {
-
-    val navController = rememberNavController()
-
-    CategoriesPage(
-        navController = navController,
-        viewModel = ProviderViewModel.provideCategoriesViewModel()
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun CategoriesPagePreview() {
+//
+//    val navController = rememberNavController()
+//
+//    CategoriesPage(
+//        navController = navController,
+//        viewModel = ProviderViewModel.provideCategoriesViewModel()
+//    )
+//}

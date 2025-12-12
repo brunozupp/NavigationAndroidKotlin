@@ -9,13 +9,18 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CategoriesViewModel(
-    val repository: ITheMealDbRepository
+    private val repository: ITheMealDbRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CategoriesUiState())
     val uiState: StateFlow<CategoriesUiState> = _uiState.asStateFlow()
 
-    fun fetchCategories() {
+    init {
+        fetchCategories()
+        println("Executado categories")
+    }
+
+    private fun fetchCategories() {
 
         _uiState.value = _uiState.value.copy(
             loading = true,
