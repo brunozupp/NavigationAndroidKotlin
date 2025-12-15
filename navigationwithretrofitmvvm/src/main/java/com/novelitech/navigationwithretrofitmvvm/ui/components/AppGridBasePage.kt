@@ -55,31 +55,12 @@ fun <T> AppGridBasePage(
         ) {
             when {
                 loading -> {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        CircularProgressIndicator()
-                    }
+                    LoadingPage()
                 }
                 error != null -> {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            Text(
-                                text = "Error!",
-                            )
-                            Text(
-                                text = error,
-                            )
-                        }
-                    }
+                    ErrorPage(
+                        error = error,
+                    )
                 }
                 items.isNotEmpty() -> {
                     LazyVerticalGrid(
@@ -100,7 +81,9 @@ fun <T> AppGridBasePage(
                                 AsyncImage(
                                     model = imageThumb(it),
                                     contentDescription = imageDescription(it),
-                                    modifier = Modifier.fillMaxSize().aspectRatio(1f),
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .aspectRatio(1f),
                                     contentScale = ContentScale.Crop
                                 )
                                 Box(
@@ -128,16 +111,7 @@ fun <T> AppGridBasePage(
                     }
                 }
                 else -> {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Text(
-                            text = "No content!",
-                        )
-                        Text(
-                            text = "There is no content to display :|",
-                        )
-                    }
+                    NoContentPage()
                 }
             }
         }
