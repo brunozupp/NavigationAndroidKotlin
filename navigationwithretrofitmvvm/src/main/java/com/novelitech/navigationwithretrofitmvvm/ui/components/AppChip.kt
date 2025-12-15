@@ -31,7 +31,7 @@ fun AppChip(
                     )
                 )
             )
-            .background(Colors.Secundary, shape = RoundedCornerShape(16.dp))
+            .background(Colors.Secondary, shape = RoundedCornerShape(16.dp))
     ) {
         Text(
             title,
