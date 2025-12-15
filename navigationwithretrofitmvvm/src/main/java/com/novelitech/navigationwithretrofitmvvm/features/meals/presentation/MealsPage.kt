@@ -25,7 +25,6 @@ fun MealsPage(
         if (canExecuteFirstTime) {
             viewModel.fetchMeals(categoryName)
             canExecuteFirstTime = false
-            println("Executado meals")
         }
     }
 

@@ -79,6 +79,10 @@ fun MyApp() {
                 categoryName = categoryName,
             )
         }
-        composable<AppRoutes.MealDetails> { MealDetailsPage() }
+        composable<AppRoutes.MealDetails> {
+            MealDetailsPage(
+                navController = navController
+            )
+        }
     }
 }
