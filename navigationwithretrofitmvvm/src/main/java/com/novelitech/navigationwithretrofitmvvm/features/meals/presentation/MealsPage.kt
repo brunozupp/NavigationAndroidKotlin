@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import com.novelitech.navigationwithretrofitmvvm.ui.components.AppGridBasePage
 import androidx.compose.runtime.setValue
+import com.novelitech.navigationwithretrofitmvvm.core.navigation.AppRoutes
 
 @Composable
 fun MealsPage(
@@ -36,6 +37,6 @@ fun MealsPage(
         items = uiState.meals,
         imageThumb = { it.image },
         imageDescription = { it.name },
-        onTapImage = { println("${it.name}") }
+        onTapImage = { navController.navigate(AppRoutes.MealDetails(mealId = it.id)) }
     )
 }

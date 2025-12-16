@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.novelitech.navigationwithretrofitmvvm.ui.theme.Colors
 
 @Composable
 fun AppInfo(
@@ -28,7 +29,8 @@ fun AppInfo(
             info,
             style = TextStyle(
                 fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                color = Colors.InfoText,
             )
         )
     }

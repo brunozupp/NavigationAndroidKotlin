@@ -2,8 +2,10 @@ package com.novelitech.navigationwithretrofitmvvm.features.providers
 
 import androidx.lifecycle.ViewModelProvider
 import com.novelitech.navigationwithretrofitmvvm.features.categories.presentation.CategoriesViewModel
+import com.novelitech.navigationwithretrofitmvvm.features.mealDetails.presentation.MealDetailsViewModel
 import com.novelitech.navigationwithretrofitmvvm.features.meals.presentation.MealsViewModel
 import com.novelitech.navigationwithretrofitmvvm.features.providers.factories.CategoriesViewModelFactory
+import com.novelitech.navigationwithretrofitmvvm.features.providers.factories.MealDetailsViewModelFactory
 import com.novelitech.navigationwithretrofitmvvm.features.providers.factories.MealsViewModelFactory
 
 object ProviderViewModel {
@@ -27,6 +29,12 @@ object ProviderViewModel {
 
     fun provideMealsViewModelFactory() : ViewModelProvider.Factory {
         return MealsViewModelFactory(
+            repository = ProviderRepository.provideTheMealDbRepository()
+        )
+    }
+
+    fun provideMealDetailsViewModelFactory() : ViewModelProvider.Factory {
+        return MealDetailsViewModelFactory(
             repository = ProviderRepository.provideTheMealDbRepository()
         )
     }

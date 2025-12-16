@@ -28,11 +28,11 @@ object MealDetailsSerializer : KSerializer<MealDetailsModel> {
 
         val jsonObject = input.decodeJsonElement().jsonObject
 
-        val id = jsonObject[""]!!.jsonPrimitive.content
-        val name = jsonObject[""]!!.jsonPrimitive.content
-        val category = jsonObject[""]!!.jsonPrimitive.content
-        val area = jsonObject[""]!!.jsonPrimitive.content
-        val instructions = jsonObject[""]!!.jsonPrimitive.content
+        val id = jsonObject["idMeal"]!!.jsonPrimitive.content
+        val name = jsonObject["strMeal"]!!.jsonPrimitive.content
+        val category = jsonObject["strCategory"]!!.jsonPrimitive.content
+        val area = jsonObject["strArea"]!!.jsonPrimitive.content
+        val instructions = jsonObject["strInstructions"]!!.jsonPrimitive.content
 
         val ingredients = jsonObject.entries
             .filter { it.key.startsWith("strIngredient") }

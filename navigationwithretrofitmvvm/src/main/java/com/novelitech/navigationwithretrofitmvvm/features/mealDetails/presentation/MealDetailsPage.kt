@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -44,6 +46,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import com.novelitech.navigationwithretrofitmvvm.ui.components.ErrorPage
 import com.novelitech.navigationwithretrofitmvvm.ui.components.LoadingPage
 import com.novelitech.navigationwithretrofitmvvm.ui.components.NoContentPage
+import com.novelitech.navigationwithretrofitmvvm.ui.theme.Colors
 
 @Composable
 fun MealDetailsPage(
@@ -53,6 +56,15 @@ fun MealDetailsPage(
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    /**
+     * By default, a Column is not scrollable. So, I need to pass this to the property verticalScroll
+     * from Modifier's Column. And import to know: when working with this approach I can not have
+     * ColumnLazy nested inside a scrollable Column.
+     * If for some motive I have a really large list of items I can wrap all my content inside a
+     * LazyColumn and I don't need to use .verticalScroll with this approach
+     */
+    val scrollState = rememberScrollState()
 
     var canExecuteFirstTime by rememberSaveable { mutableStateOf(true) }
 
@@ -84,9 +96,11 @@ fun MealDetailsPage(
             uiState.details != null -> {
                 Column(
                     modifier = Modifier
+                        .background(Color.White)
                         .padding(innerPadding)
                         .padding(24.dp)
                         .fillMaxSize()
+                        .verticalScroll(scrollState)
                 ) {
                     Row {
                         AppInfo(
@@ -114,15 +128,14 @@ fun MealDetailsPage(
                         title = "Ingredients",
                         startExpanded = true
                     ) {
-                        LazyColumn {
-                            items(uiState.details!!.ingredients) {
-                                Text(
-                                    "- $it",
-                                    style = TextStyle(
-                                        fontSize = 16.sp
-                                    )
+                        uiState.details!!.ingredients.forEach {
+                            Text(
+                                "- $it",
+                                style = TextStyle(
+                                    fontSize = 16.sp,
+                                    color = Colors.InfoText,
                                 )
-                            }
+                            )
                         }
                     }
                     HorizontalDivider(
@@ -133,9 +146,10 @@ fun MealDetailsPage(
                         startExpanded = true
                     ) {
                         Text(
-                            "Hey",
+                            uiState.details!!.instructions,
                             style = TextStyle(
-                                fontSize = 16.sp
+                                fontSize = 16.sp,
+                                color = Colors.InfoText,
                             )
                         )
                     }

@@ -31,7 +31,7 @@ class TheMealDbRepository(
             return response.meals
 
         } catch (_: Exception) {
-            throw Exception("Error while fetching categories")
+            throw Exception("Error while fetching meals")
         }
     }
 
@@ -43,7 +43,7 @@ class TheMealDbRepository(
             return response.meals.first()
 
         } catch (_: Exception) {
-            throw Exception("Error while fetching categories")
+            throw Exception("Error while fetching details")
         }
     }
 }

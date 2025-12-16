@@ -13,6 +13,7 @@ import com.novelitech.navigationwithretrofitmvvm.features.mealDetails.presentati
 import com.novelitech.navigationwithretrofitmvvm.features.meals.presentation.MealsPage
 import com.novelitech.navigationwithretrofitmvvm.features.providers.ProviderViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.novelitech.navigationwithretrofitmvvm.features.mealDetails.presentation.MealDetailsViewModel
 import com.novelitech.navigationwithretrofitmvvm.features.meals.presentation.MealsViewModel
 
 @Composable
@@ -79,9 +80,19 @@ fun MyApp() {
                 categoryName = categoryName,
             )
         }
-        composable<AppRoutes.MealDetails> {
+        composable<AppRoutes.MealDetails> { backStackEntry ->
+
+            val mealId = backStackEntry.toRoute<AppRoutes.MealDetails>().mealId
+
+            val viewModel: MealDetailsViewModel = viewModel(
+                viewModelStoreOwner = backStackEntry,
+                factory = ProviderViewModel.provideMealDetailsViewModelFactory()
+            )
+
             MealDetailsPage(
-                navController = navController
+                navController = navController,
+                viewModel = viewModel,
+                mealId = mealId,
             )
         }
     }
