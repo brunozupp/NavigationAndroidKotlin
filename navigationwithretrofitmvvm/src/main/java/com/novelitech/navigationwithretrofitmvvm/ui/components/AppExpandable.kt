@@ -64,6 +64,7 @@ fun AppExpandable(
                     Icons.Default.KeyboardArrowDown
                 },
                 contentDescription = if(expanded) "Expanded" else "Not expanded",
+                tint = Colors.InfoText,
             )
         }
 

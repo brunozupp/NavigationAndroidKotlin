@@ -128,9 +128,9 @@ fun MealDetailsPage(
                         title = "Ingredients",
                         startExpanded = true
                     ) {
-                        uiState.details!!.ingredients.forEach {
+                        uiState.details!!.ingredients.forEachIndexed { index, _ ->
                             Text(
-                                "- $it",
+                                "* ${uiState.details!!.ingredients[index]} - ${uiState.details!!.measures[index]}",
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     color = Colors.InfoText,
