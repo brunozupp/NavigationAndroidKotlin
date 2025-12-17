@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "NavigationAndroidKotlin"
 include(":app")
 include(":navigationwithretrofitmvvm")
+include(":locationapp")
