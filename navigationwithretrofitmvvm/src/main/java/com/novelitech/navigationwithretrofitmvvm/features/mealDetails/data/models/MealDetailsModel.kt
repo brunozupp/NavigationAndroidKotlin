@@ -9,7 +9,7 @@ data class MealDetailsModel(
     val name: String,
     val category: String,
     val area: String,
+    val tags: List<String>,
     val instructions: String,
     val ingredients: List<String>,
-    val measures: List<String>
 )
