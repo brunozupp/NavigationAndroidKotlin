@@ -17,7 +17,6 @@ class CategoriesViewModel(
 
     init {
         fetchCategories()
-        println("Executado categories")
     }
 
     private fun fetchCategories() {

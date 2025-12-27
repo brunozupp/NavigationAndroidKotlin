@@ -36,22 +36,6 @@ object MealDetailsSerializer : KSerializer<MealDetailsModel> {
 
         val tags = jsonObject["strTags"]?.jsonPrimitive?.contentOrNull?.split(",")?.filter { it.isNotEmpty() } ?: emptyList()
 
-//        val ingredients = jsonObject.entries
-//            .filter { it.key.startsWith("strIngredient") }
-//            .mapNotNull { it.value.jsonPrimitive.contentOrNull }
-//            .filter { it.isNotBlank() }
-//
-//        val measures = jsonObject.entries
-//            .filter { it.key.startsWith("strMeasure") }
-//            .mapNotNull { it.value.jsonPrimitive.contentOrNull }
-//            .filter { it.isNotBlank() }
-
-//        val ingredients = jsonObject.entries
-//            .filter { it.key.startsWith("strIngredient") }
-//            .associateBy { it.key.replace("\\w+", "") }
-//            .filter { it.value.value.jsonPrimitive.contentOrNull != null }
-//            .filter { it.value.value.jsonPrimitive.content.isNotBlank() }
-
         val ingredients = jsonObject.entries
             .filter { it.key.startsWith("strIngredient") }
             .mapNotNull { entry ->

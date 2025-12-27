@@ -1,0 +1,47 @@
+CONTEXT IN ANDROID
+
+Context is Android's handle to the current environment of the app. It represents "Where am I,
+and what can I do in the Android system?"
+
+Every Context instance, not matter the type, is tied to:
+- A lifecycle
+- A scope (application, activity, service)
+- A set of resources and permissions
+
+Now below, I'll show the main types of CONTEXT
+
+1 - Application Context: applicationContext
+- Lives as long as the app process
+- NOT tied to UI
+- Safe to store as a singleton (if I try to use a context of Activity this one will never be
+garbage collected. SO ALWAYS USE APPLICATION CONTEXT TO THIS)
+- No memory leaks if used properly
+
+Use it for: Databases, Repositories, SharedPreferences, WorkManager, Analytics, System services not
+tied to UI
+
+DO NOT use it for: Showing dialogs, Inflating views with themes, Starting UI flows
+
+2 - Activity Context: this // inside Activity
+- Lives as long as the Activity
+- Knows about themes, window, UI
+- Can leak memory if stored improperly
+
+Use it for: UI inflation, Navigation, Dialogs, Toasts, Getting themed resources
+
+DO NOT store long-term
+
+3 - Service Context
+- Similar to Application context
+- Used for background operations
+- No UI access
+
+-- // -- // -- // -- // -- // -- // -- // -- // --
+
+Context in Jetpack Compose
+- LocalContext -> val context = LocalContext.current
+- This is usually the Activity context
+
+Use it for: Showing toast, Launching Intents, Accessing resources
+
+DO NOT store this value (because of garbage collector as it's linked with an activity - most cases)
