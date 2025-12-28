@@ -10,8 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.novelitech.locationapp.core.helpers.LocationHelper
 import com.novelitech.locationapp.pages.LocationPage
+import com.novelitech.locationapp.pages.LocationViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -21,6 +23,8 @@ fun MyApp() {
     val context = LocalContext.current
 
     val locationHelper = LocationHelper(context)
+
+    val viewModel: LocationViewModel = viewModel()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -37,6 +41,7 @@ fun MyApp() {
             modifier = Modifier.padding(innerPadding),
             context = context,
             locationHelper = locationHelper,
+            viewModel = viewModel
         )
     }
 }

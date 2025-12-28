@@ -8,21 +8,37 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.novelitech.locationapp.MainActivity
 import com.novelitech.locationapp.core.helpers.LocationHelper
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.unit.dp
+import com.novelitech.locationapp.models.LocationModel
 
 @Composable
 fun LocationPage(
     modifier: Modifier = Modifier,
     context: Context,
     locationHelper: LocationHelper,
+    viewModel: LocationViewModel
 ) {
+
+    val location by viewModel.location.collectAsStateWithLifecycle()
+
+    fun requestLocation() {
+        locationHelper.getLocation { location ->
+            location?.let {
+                viewModel.updateLocation(it)
+            }
+        }
+    }
 
     val requestPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions(),
@@ -35,6 +51,8 @@ fun LocationPage(
                 permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
 
                 // I got the permissions and I do what I need to do
+
+                requestLocation()
 
             } else {
 
@@ -81,13 +99,27 @@ fun LocationPage(
         verticalArrangement = Arrangement.Center,
     ) {
 
-        Text(
-            text = "Location not available"
-        )
+        if(location != null) {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = "Latitude: $${location!!.latitude} | Longitude: ${location!!.longitude}"
+                )
+                Text(
+                    text = "Address = ${locationHelper.reverseGeocodeLocation(location!!)}"
+                )
+            }
+        } else {
+            Text(
+                text = "Location not available"
+            )
+        }
 
         Button(
             onClick = {
                 if(locationHelper.hasLocationPermission()) {
+                    requestLocation()
 
                 } else {
                     /**
