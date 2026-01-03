@@ -23,6 +23,14 @@ class LocationHelper(val context: Context) {
     private val _fusedLocationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
 
+    /**
+     * One interesting thing happens in here, the location changes its value all the time in the
+     * screen, it's like the override method onLocationResult is a Stream the doesn't close the
+     * first time and continues to get the coordinates and execute the callback method that I assigned
+     * as the parameter of this function. That's the reason the information on the screen keeps changing
+     * all the time, because the callback I pass is the method to update the mutable state variable
+     * that holds the value in my viewmodel
+     */
     @SuppressLint("MissingPermission")
     fun getLocation(callback: (LocationModel?) -> Unit) {
 
