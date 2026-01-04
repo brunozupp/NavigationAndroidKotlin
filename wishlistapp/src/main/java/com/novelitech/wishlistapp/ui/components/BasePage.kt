@@ -1,10 +1,19 @@
 package com.novelitech.wishlistapp.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -20,10 +29,17 @@ import com.novelitech.wishlistapp.ui.theme.Colors
 fun BasePage(
     modifier: Modifier = Modifier,
     title: String,
+    onClickFloatingActionButton: (() -> Unit)? = null,
+    onClickNavigationBack: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
     Scaffold(
         modifier = modifier,
+        floatingActionButton = {
+          if(onClickFloatingActionButton != null) {
+              AppFloatingActionButton(onClickFloatingActionButton)
+          }
+        },
         topBar = {
             TopAppBar(
                 title = {
@@ -37,7 +53,12 @@ fun BasePage(
                 },
                 colors = TopAppBarDefaults.topAppBarColors().copy(
                     containerColor = Colors.Primaria,
-                )
+                ),
+                navigationIcon = {
+                    if(onClickNavigationBack != null) {
+                        AppNavigationBackIcon(onClickNavigationBack)
+                    }
+                }
             )
         }
     ) { innerPadding ->
@@ -47,4 +68,32 @@ fun BasePage(
             content()
         }
     }
+}
+
+@Composable
+private fun AppFloatingActionButton(
+    onClick: () -> Unit,
+) {
+    FloatingActionButton(
+        onClick = onClick,
+        shape = CircleShape,
+        containerColor = Colors.Primaria,
+    ) {
+        Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = "Add"
+        )
+    }
+}
+
+@Composable
+fun AppNavigationBackIcon(
+    onClick: () -> Unit,
+) {
+    Icon(
+        modifier = Modifier
+            .clickable { onClick() },
+        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+        contentDescription = "Go back",
+    )
 }

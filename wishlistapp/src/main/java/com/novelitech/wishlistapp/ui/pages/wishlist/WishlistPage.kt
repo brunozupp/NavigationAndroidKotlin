@@ -19,6 +19,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.novelitech.wishlistapp.core.navigation.AppNavigation
 import com.novelitech.wishlistapp.data.models.WishModel
 import com.novelitech.wishlistapp.ui.components.BasePage
 import com.novelitech.wishlistapp.ui.components.Gap
@@ -28,7 +30,10 @@ import com.novelitech.wishlistapp.ui.theme.NavigationAndroidKotlinTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WishlistPage(modifier: Modifier = Modifier) {
+fun WishlistPage(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
 
     val wishes = listOf<WishModel>(
         WishModel("Title one", "Description one"),
@@ -41,7 +46,12 @@ fun WishlistPage(modifier: Modifier = Modifier) {
 
     BasePage(
         modifier = modifier,
-        title = "Wishlist"
+        title = "Wishlist",
+        onClickFloatingActionButton = {
+            navController.navigate(
+                AppNavigation.NewWish
+            )
+        }
     ) {
         LazyColumn(
             modifier = Modifier
@@ -58,10 +68,10 @@ fun WishlistPage(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun WishlistPagePreview() {
-    NavigationAndroidKotlinTheme {
-        WishlistPage()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun WishlistPagePreview() {
+//    NavigationAndroidKotlinTheme {
+//        WishlistPage()
+//    }
+//}

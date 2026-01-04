@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.novelitech.wishlistapp.ui.components.BasePage
 import com.novelitech.wishlistapp.ui.components.Gap
 import com.novelitech.wishlistapp.ui.pages.newwish.components.AppField
@@ -25,7 +26,10 @@ import com.novelitech.wishlistapp.ui.theme.Colors
 import com.novelitech.wishlistapp.ui.theme.NavigationAndroidKotlinTheme
 
 @Composable
-fun NewWishPage(modifier: Modifier = Modifier) {
+fun NewWishPage(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+) {
 
     val scrollState = rememberScrollState()
 
@@ -39,7 +43,10 @@ fun NewWishPage(modifier: Modifier = Modifier) {
 
     BasePage(
         modifier = modifier,
-        title = "Wish"
+        title = "Wish",
+        onClickNavigationBack = {
+            navController.popBackStack()
+        }
     ) {
 
         Column(
@@ -82,10 +89,10 @@ fun NewWishPage(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun NewWishPagePreview() {
-    NavigationAndroidKotlinTheme {
-        NewWishPage()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun NewWishPagePreview() {
+//    NavigationAndroidKotlinTheme {
+//        NewWishPage()
+//    }
+//}
