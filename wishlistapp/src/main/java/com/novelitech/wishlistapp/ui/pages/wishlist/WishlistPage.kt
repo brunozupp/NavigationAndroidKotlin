@@ -42,10 +42,9 @@ fun WishlistPage(modifier: Modifier = Modifier) {
     BasePage(
         modifier = modifier,
         title = "Wishlist"
-    ) { innerPadding ->
+    ) {
         LazyColumn(
             modifier = Modifier
-                .padding(innerPadding)
                 .fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
         ) {

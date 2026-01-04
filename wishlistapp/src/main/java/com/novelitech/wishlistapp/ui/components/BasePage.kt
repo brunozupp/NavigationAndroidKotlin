@@ -1,5 +1,6 @@
 package com.novelitech.wishlistapp.ui.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -19,7 +20,7 @@ import com.novelitech.wishlistapp.ui.theme.Colors
 fun BasePage(
     modifier: Modifier = Modifier,
     title: String,
-    content: @Composable (PaddingValues) -> Unit
+    content: @Composable () -> Unit
 ) {
     Scaffold(
         modifier = modifier,
@@ -40,6 +41,10 @@ fun BasePage(
             )
         }
     ) { innerPadding ->
-        content(innerPadding)
+        Box(
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            content()
+        }
     }
 }
