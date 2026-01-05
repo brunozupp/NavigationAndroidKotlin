@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
     kotlin("plugin.serialization")
 }
 
@@ -74,4 +75,11 @@ dependencies {
     // IMPORTANT: the version MUST BE the same used by navigation-compose. Otherwise it
     // will throw an exception when running the application
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+
+    val room_version = "2.6.1"
+
+    // Room
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
 }
