@@ -11,6 +11,7 @@ fun AppField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
+    errorMessage: String? = null
 ) {
     OutlinedTextField(
         modifier = Modifier
