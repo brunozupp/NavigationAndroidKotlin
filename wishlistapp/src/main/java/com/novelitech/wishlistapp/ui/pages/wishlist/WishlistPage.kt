@@ -1,9 +1,11 @@
 package com.novelitech.wishlistapp.ui.pages.wishlist
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,6 +18,11 @@ import com.novelitech.wishlistapp.ui.components.BasePage
 import com.novelitech.wishlistapp.ui.components.Gap
 import com.novelitech.wishlistapp.ui.pages.wishlist.components.WishCard
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import com.novelitech.wishlistapp.ui.components.AppError
+import com.novelitech.wishlistapp.ui.components.AppLoading
+import com.novelitech.wishlistapp.ui.components.AppNoContent
+import com.novelitech.wishlistapp.ui.theme.Colors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,16 +43,26 @@ fun WishlistPage(
             )
         }
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-        ) {
-            itemsIndexed(uiState.wishes) { index, wish ->
-                WishCard(wish)
-                if(index < uiState.wishes.size - 1) {
-                    Gap(16)
-                }
+        when {
+            uiState.loading -> AppLoading()
+            uiState.hasError -> AppError(uiState.error!!)
+            uiState.wishes.isEmpty() -> AppNoContent("There is no wish in the list. Please, add one")
+            else -> Wishes(uiState.wishes)
+        }
+    }
+}
+
+@Composable
+private fun Wishes(wishes: List<WishModel>) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentPadding = PaddingValues(16.dp),
+    ) {
+        itemsIndexed(wishes) { index, wish ->
+            WishCard(wish)
+            if(index < wishes.size - 1) {
+                Gap(16)
             }
         }
     }
