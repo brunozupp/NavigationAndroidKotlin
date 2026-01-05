@@ -54,13 +54,15 @@ fun NewWishPage(
             AppField(
                 value = uiState.title,
                 onValueChange = viewModel::onChangeTitle,
-                label = "Title"
+                label = "Title",
+                errorMessage = uiState.titleError,
             )
             Gap(8)
             AppField(
                 value = uiState.description,
                 onValueChange = viewModel::onChangeDescription,
-                label = "Description"
+                label = "Description",
+                errorMessage = uiState.descriptionError,
             )
             Gap(16)
             Button(

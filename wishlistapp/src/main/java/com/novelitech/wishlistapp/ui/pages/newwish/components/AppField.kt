@@ -13,6 +13,9 @@ fun AppField(
     label: String,
     errorMessage: String? = null
 ) {
+
+    val hasError = errorMessage != null && errorMessage.isNotBlank()
+
     OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth(),
@@ -20,6 +23,12 @@ fun AppField(
         onValueChange = onValueChange,
         label = {
             Text(label)
+        },
+        isError = hasError,
+        supportingText = {
+            if(hasError) {
+                Text(errorMessage)
+            }
         }
     )
 }
