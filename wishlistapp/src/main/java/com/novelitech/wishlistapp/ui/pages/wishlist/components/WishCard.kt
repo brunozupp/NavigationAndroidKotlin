@@ -1,6 +1,5 @@
 package com.novelitech.wishlistapp.ui.pages.wishlist.components
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,12 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.novelitech.wishlistapp.data.models.WishModel
+import com.novelitech.wishlistapp.data.entities.WishEntity
 import com.novelitech.wishlistapp.ui.components.Gap
 
 @Composable
 fun WishCard(
-    wish: WishModel
+    wish: WishEntity
 ) {
     Card(
         modifier = Modifier
