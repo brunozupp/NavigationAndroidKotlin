@@ -11,11 +11,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.novelitech.wishlistapp.core.events.UiEvent
 import com.novelitech.wishlistapp.ui.components.AppError
 import com.novelitech.wishlistapp.ui.components.AppLoading
 import com.novelitech.wishlistapp.ui.components.BasePage
@@ -33,6 +35,16 @@ fun NewWishPage(
     val scrollState = rememberScrollState()
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.uiEvent.collect { event ->
+            when(event) {
+                UiEvent.Success -> {
+                    navController.popBackStack()
+                }
+            }
+        }
+    }
 
     BasePage(
         modifier = modifier,
