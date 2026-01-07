@@ -1,7 +1,9 @@
 package com.novelitech.wishlistapp
 
+import android.app.Application
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,6 +20,16 @@ fun MyApp(modifier: Modifier = Modifier) {
 
     val navController = rememberNavController()
 
+    /**
+     * Using this approach to obtain the instances of what I need from my 'Service Locator':
+     * - ViewModel scoped correctly
+     * - DB instance reused
+     * - No leaks
+     * - No static context
+     */
+    val context = LocalContext.current
+    val application = context.applicationContext as Application
+
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -27,7 +39,7 @@ fun MyApp(modifier: Modifier = Modifier) {
 
             val viewModel: WishlistViewModel = viewModel(
                 viewModelStoreOwner = backStackEntry,
-                factory = ViewModelsDI.provideWishlistViewModelFactory()
+                factory = ViewModelsDI.provideWishlistViewModelFactory(application)
             )
 
             WishlistPage(
@@ -39,7 +51,7 @@ fun MyApp(modifier: Modifier = Modifier) {
 
             val viewModel: NewWishViewModel = viewModel(
                 viewModelStoreOwner = backStackEntry,
-                factory = ViewModelsDI.provideNewWishViewModelFactory()
+                factory = ViewModelsDI.provideNewWishViewModelFactory(application)
             )
 
             NewWishPage(

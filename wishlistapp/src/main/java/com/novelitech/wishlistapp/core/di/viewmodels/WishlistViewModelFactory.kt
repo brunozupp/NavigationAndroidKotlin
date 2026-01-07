@@ -2,11 +2,12 @@ package com.novelitech.wishlistapp.core.di.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.novelitech.wishlistapp.data.repositories.IWishesRepository
 import com.novelitech.wishlistapp.ui.pages.wishlist.WishlistViewModel
 
-class WishlistViewModelFactory : ViewModelProvider.Factory {
+class WishlistViewModelFactory(private val repository: IWishesRepository) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return WishlistViewModel() as T
+        return WishlistViewModel(repository) as T
     }
 }
