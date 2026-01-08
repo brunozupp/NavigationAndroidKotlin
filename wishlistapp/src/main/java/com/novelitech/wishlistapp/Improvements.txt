@@ -1,0 +1,74 @@
+A list of improvements and explanation about the architecture of this module
+
+Improvements:
+
+- app
+    - change colors to white mode
+
+- Wishlist
+    - show snackbar message when deleting success
+    - show snackbar message when deleting error
+
+- NewWish
+    - Add new validations to the fields
+    - Change the loading screen to the button
+    - While in loading, the button needs to be disabled
+    - While snackbar message from success, button needs to be disabled
+
+
+Architecture
+    - The architecture used to this project was simplified for study reasons, as the main goal of it
+    was to learn how to work with Room Database. But in a more professional structure I would have
+    a domain layer to not expose the data entity from Room directly to the screen.
+    - So, thinking about a more robust structure, it would be like this:
+
+- data
+    - entities
+        - WishEntity
+    - daos
+        - WishesDao
+    - repositories
+        - WishesRepository
+    - mapper
+        - WishMapper
+    - WishlistAppDatabase
+- domain
+    - entities
+        - Wish
+    - repositories
+        - IWishesRepository
+    - usecases
+        - GetAllWishesUsecase
+        - AddWishUsecase
+        - UpdateWishUsecase
+        - DeleteWishUsecase
+        - GetWishByIdUsecase
+- presentation
+    - pages
+        - wishlist
+            - WishlistPage
+            - WishlistUiState
+            - WishlistViewModel
+        - newwish
+            - NewWishPage
+            - NewWishUiState
+            - NewWishViewModel
+    - components
+    - theme
+
+And adding more complexity, if I have different data layers to manage, for example, api and room
+database, I should do something like this:
+
+data/
+│
+├── local/
+│   ├── entity/
+│   │   └── WishEntity.kt
+│   ├── dao/
+│   │   └── WishDao.kt
+│   └── AppDatabase.kt
+│
+├── remote/
+│   ├── dto/
+│   │   └── WishDto.kt
+│   └── ApiService.kt
