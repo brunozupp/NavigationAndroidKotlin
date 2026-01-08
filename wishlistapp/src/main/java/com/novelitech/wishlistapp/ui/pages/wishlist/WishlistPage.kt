@@ -43,20 +43,27 @@ fun WishlistPage(
             uiState.loading -> AppLoading()
             uiState.hasError -> AppError(uiState.error!!)
             uiState.wishes.isEmpty() -> AppNoContent("There is no wish in the list. Please, add one")
-            else -> Wishes(uiState.wishes)
+            else -> Wishes(uiState.wishes, navController = navController)
         }
     }
 }
 
 @Composable
-private fun Wishes(wishes: List<WishEntity>) {
+private fun Wishes(
+    wishes: List<WishEntity>,
+    navController: NavController,
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
     ) {
         itemsIndexed(wishes) { index, wish ->
-            WishCard(wish)
+            WishCard(wish) {
+                navController.navigate(
+                    AppNavigation.NewWish(wish = wish)
+                )
+            }
             if(index < wishes.size - 1) {
                 Gap(16)
             }

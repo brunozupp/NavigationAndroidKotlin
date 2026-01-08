@@ -66,7 +66,8 @@ fun NewWishPage(
             when(event) {
                 UiEvent.Success -> {
                     scope.launch {
-                        snackbarHostState.showSnackbar(message = "Wish saved with success :)")
+                        val action = if(wish != null) "updated" else "added"
+                        snackbarHostState.showSnackbar(message = "Wish $action with success :)")
 
                         navController.popBackStack()
                     }

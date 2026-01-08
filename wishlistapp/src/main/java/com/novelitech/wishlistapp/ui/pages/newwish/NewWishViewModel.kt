@@ -72,14 +72,31 @@ class NewWishViewModel(
     }
 
     fun updateWish(id: Long) {
+        _uiState.update {
+            it.copy(loading = true, error = null)
+        }
+
         viewModelScope.launch(Dispatchers.IO) {
-            repository.update(
-                WishEntity(
-                    id = id,
-                    title = _uiState.value.title,
-                    description = _uiState.value.description,
+            try {
+                repository.update(
+                    WishEntity(
+                        id = id,
+                        title = _uiState.value.title,
+                        description = _uiState.value.description,
+                    )
                 )
-            )
+
+                _uiState.update {
+                    it.copy(loading = false)
+                }
+
+                _uiEvent.emit(UiEvent.Success)
+
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(loading = false, error = e.message ?: "Something went wrong")
+                }
+            }
         }
     }
 }
