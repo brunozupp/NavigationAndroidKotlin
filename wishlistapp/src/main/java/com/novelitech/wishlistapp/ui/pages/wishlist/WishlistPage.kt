@@ -35,7 +35,7 @@ fun WishlistPage(
         title = "Wishlist",
         onClickFloatingActionButton = {
             navController.navigate(
-                AppNavigation.NewWish
+                AppNavigation.NewWish(wish = null)
             )
         }
     ) {

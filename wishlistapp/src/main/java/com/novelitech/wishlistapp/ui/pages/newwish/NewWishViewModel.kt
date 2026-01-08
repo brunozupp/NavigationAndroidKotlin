@@ -24,6 +24,12 @@ class NewWishViewModel(
     private val _uiEvent = MutableSharedFlow<UiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
+    fun initializeFieldsOnEditing(wish: WishEntity) {
+        _uiState.update {
+            it.copy(title = wish.title, description = wish.description)
+        }
+    }
+
     fun onChangeTitle(value: String) {
         _uiState.update {
             it.copy(title = value)
@@ -50,6 +56,10 @@ class NewWishViewModel(
                         description = _uiState.value.description,
                     )
                 )
+
+                _uiState.update {
+                    it.copy(loading = false)
+                }
 
                 _uiEvent.emit(UiEvent.Success)
 

@@ -31,7 +31,8 @@ fun BasePage(
     title: String,
     onClickFloatingActionButton: (() -> Unit)? = null,
     onClickNavigationBack: (() -> Unit)? = null,
-    content: @Composable () -> Unit
+    snackbarHost: @Composable (() -> Unit) = {},
+    content: @Composable () -> Unit,
 ) {
     Scaffold(
         modifier = modifier,
@@ -40,6 +41,7 @@ fun BasePage(
               AppFloatingActionButton(onClickFloatingActionButton)
           }
         },
+        snackbarHost = snackbarHost,
         topBar = {
             TopAppBar(
                 title = {

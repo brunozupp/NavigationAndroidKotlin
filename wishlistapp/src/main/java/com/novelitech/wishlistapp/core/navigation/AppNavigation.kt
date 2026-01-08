@@ -1,5 +1,6 @@
 package com.novelitech.wishlistapp.core.navigation
 
+import com.novelitech.wishlistapp.data.entities.WishEntity
 import kotlinx.serialization.Serializable
 
 sealed interface AppNavigation {
@@ -8,5 +9,7 @@ sealed interface AppNavigation {
     data object Wishlist : AppNavigation
 
     @Serializable
-    data object NewWish : AppNavigation
+    data class NewWish(
+        val wish: WishEntity? = null
+    ) : AppNavigation
 }
