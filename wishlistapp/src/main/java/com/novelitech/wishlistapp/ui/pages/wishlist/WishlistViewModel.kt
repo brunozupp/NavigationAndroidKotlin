@@ -2,7 +2,9 @@ package com.novelitech.wishlistapp.ui.pages.wishlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.novelitech.wishlistapp.data.entities.WishEntity
 import com.novelitech.wishlistapp.data.repositories.IWishesRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -11,6 +13,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class WishlistViewModel(
     private val repository: IWishesRepository,
@@ -54,4 +57,10 @@ class WishlistViewModel(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = WishlistUiState(loading = true)
         )
+
+    fun deleteWish(wish: WishEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.delete(wish)
+        }
+    }
 }

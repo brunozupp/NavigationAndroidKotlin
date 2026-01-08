@@ -43,7 +43,17 @@ fun WishlistPage(
             uiState.loading -> AppLoading()
             uiState.hasError -> AppError(uiState.error!!)
             uiState.wishes.isEmpty() -> AppNoContent("There is no wish in the list. Please, add one")
-            else -> Wishes(uiState.wishes, navController = navController)
+            else -> Wishes(
+                wishes = uiState.wishes,
+                onTapWish = {
+                    navController.navigate(
+                        AppNavigation.NewWish(wish = it)
+                    )
+                },
+                onSwipeToDismissWish = {
+                    viewModel.deleteWish(wish = it)
+                }
+            )
         }
     }
 }
@@ -51,19 +61,23 @@ fun WishlistPage(
 @Composable
 private fun Wishes(
     wishes: List<WishEntity>,
-    navController: NavController,
+    onTapWish: (WishEntity) -> Unit,
+    onSwipeToDismissWish: (WishEntity) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
     ) {
-        itemsIndexed(wishes) { index, wish ->
-            WishCard(wish) {
-                navController.navigate(
-                    AppNavigation.NewWish(wish = wish)
-                )
-            }
+        /**
+         * When using Dismiss functionality I need to pass the key to work properly
+         */
+        itemsIndexed(wishes, key = {index, wish -> wish.id}) { index, wish ->
+            WishCard(
+                wish = wish,
+                onTap = onTapWish,
+                onSwipeToDismiss = onSwipeToDismissWish,
+            )
             if(index < wishes.size - 1) {
                 Gap(16)
             }
