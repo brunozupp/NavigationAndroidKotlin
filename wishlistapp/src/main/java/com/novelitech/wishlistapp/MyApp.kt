@@ -52,6 +52,12 @@ fun MyApp(modifier: Modifier = Modifier) {
             )
         }
         composable<AppNavigation.NewWish>(
+            /**
+             * When using arguments that are not primitive types, I need to give a typeMap to the
+             * composable function so it knows how to serialize and deserialize them. The approach
+             * used to this scenario was the creation of a generic function that can be reused in
+             * everywhere I have the same situation (serializableNavType<T>)
+             */
             typeMap = mapOf(
                 typeOf<WishEntity?>() to serializableNavType<WishEntity?>()
             ),
